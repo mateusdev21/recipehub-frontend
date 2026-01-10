@@ -96,15 +96,17 @@ export default function Navbar() {
                           rounded-lg bg-white shadow-lg"
               >
                 <button
+                  onClick={() => (window.location.href = "/login")}
                   className="block w-full px-4 pt-3 pb-1 text-left text-sm
-                         hover:bg-gray-100"
+                         hover:bg-gray-100 hover:cursor-pointer"
                 >
                   Login
                 </button>
                 <div className="my-1 h-px bg-gray-200" />
                 <button
+                  onClick={() => (window.location.href = "/register")}
                   className="block w-full px-4 py-2 text-left text-sm
-                         hover:bg-gray-100"
+                         hover:bg-gray-100 hover:cursor-pointer"
                 >
                   Register
                 </button>
