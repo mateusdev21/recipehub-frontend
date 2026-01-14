@@ -1,16 +1,24 @@
+"use client";
+import { useState } from "react";
 import Link from "next/link";
 import { IoKeyOutline, IoMailOpenOutline } from "react-icons/io5";
+import LoginButton from "@/components/LoginButton";
 
 export default function LoginPage() {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
   return (
     <div>
       <form className="space-y-4">
         <div className="flex items-center gap-2 relative">
           <input
             autoComplete="off"
-            placeholder="Email"
-            type="email"
-            id="email"
+            placeholder="Username"
+            type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
             className="mt-1 pt-3 pb-2 pl-10 block text-sm w-full rounded-lg bg-[#f3f3f5] border border-[#afafaf] placeholder:text-[#afafaf] focus:outline-[#ffcf60]"
             required
           />
@@ -19,9 +27,10 @@ export default function LoginPage() {
         <div className="flex items-center gap-2 relative">
           <input
             type="password"
-            id="password"
             autoComplete="new-password"
             placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             className="mt-1 pt-3 pb-2 pl-10 block text-sm w-full rounded-lg bg-[#f3f3f5] border border-[#afafaf] placeholder:text-[#afafaf] focus:outline-[#ffcf60]"
             required
           />
@@ -43,12 +52,17 @@ export default function LoginPage() {
             </p>
           </Link>
         </div>
-        <button
+        {/* <button
           type="submit"
           className="w-full rounded-md bg-[#ffcf60] my-2 px-4 py-2 font-semibold text-white hover:bg-yellow-500 hover:cursor-pointer transition"
         >
           Login
-        </button>
+        </button> */}
+        <LoginButton
+          username={username}
+          password={password}
+          onError={(err) => setError(err.message)}
+        />
       </form>
     </div>
   );

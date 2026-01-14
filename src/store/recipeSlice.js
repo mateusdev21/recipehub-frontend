@@ -5,6 +5,7 @@ export const fetchRecipes = createAsyncThunk(
     "recipes/fetch",
     async () => {
         const res = await getRecipes();
+        console.log("test", res.data);
         return res.data;
     }
 );

@@ -7,18 +7,17 @@ import PrintPDFButton from "@/components/ui/PrintPDFButton";
 export default async function RecipeDetailPage({ params }) {
   const { id } = await params;
   const recipe = await getRecipeDetail(id);
+  const data = recipe.data;
+
   const isLoggedIn = true;
 
-  if (!recipe) notFound();
+  if (!data) notFound();
 
   return (
     <div className="max-w-3xl mx-auto">
-      {/* Title */}
-      <h1 className="text-3xl font-bold mb-2">{recipe.title}</h1>
-
+      <h1 className="text-3xl font-bold mb-2">{data.title}</h1>
       <div className="flex w-full mb-4">
-        <PrintPDFButton id={recipe.id} />
-
+        <PrintPDFButton id={data.id} />
         {isLoggedIn && (
           <button
             className="leading-none inline-flex items-center gap-2
@@ -31,54 +30,37 @@ export default async function RecipeDetailPage({ params }) {
           </button>
         )}
       </div>
-
       <div className="mb-6 h-px bg-gray-200" />
-
-      {/* Image */}
-      {recipe.image && (
+      {data.image && (
         <div className="mb-6">
           <Image
-            src={recipe.image}
-            alt={recipe.title}
+            src={data.image}
+            alt={data.title}
             width={400}
             height={200}
             className="rounded-lg shadow-md"
           />
         </div>
       )}
+      <p className="text-gray-700 mb-6">{data.description}</p>
 
-      {/* Description */}
-      <p className="text-gray-700 mb-6">{recipe.description}</p>
-
-      {/* Ingredients */}
       <section className="mb-6">
         <h2 className="text-xl font-semibold mb-2">Ingredients</h2>
         <ul className="list-disc pl-6 space-y-1">
-          {recipe.ingredients.map((item, index) => (
+          {data.ingredients.map((item, index) => (
             <li key={index}>{item}</li>
           ))}
         </ul>
       </section>
 
-      {/* Steps */}
       <section className="mb-8">
         <h2 className="text-xl font-semibold mb-2">Steps</h2>
         <ol className="list-decimal pl-6 space-y-2">
-          {recipe.steps.map((step, index) => (
+          {data.steps.map((step, index) => (
             <li key={index}>{step}</li>
           ))}
         </ol>
       </section>
-
-      {/* Actions */}
-      {/* <div className="flex gap-4">
-        <button
-          onClick={() => downloadRecipePdf(recipe._id)}
-          className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-        >
-          Download PDF
-        </button>
-      </div> */}
     </div>
   );
 }

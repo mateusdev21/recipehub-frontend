@@ -8,20 +8,22 @@ import Image from "next/image";
 import { formatDate } from "@/utils/formating";
 // import { addFavorite, removeFavorite } from "@/redux/slices/favoriteSlice";
 
-export default function RecipeCard({ recipe, featured = false }) {
-  const dispatch = useDispatch();
-  const { isAuthenticated } = useSelector((state) => state.auth);
-  const favorites = useSelector((state) => state.favorites.items);
+export default function RecipeCard({ recipe, featured = false }) { 
+  // const dispatch = useDispatch();
+  // const { isAuthenticated } = useSelector((state) => state.auth);
+  // const favorites = useSelector((state) => state.favorites.items);
 
-  const isFavorited = favorites.some((fav) => fav.recipeId === recipe.id);
+  // const isFavorited = favorites.some((fav) => fav.recipeId === recipe.id);
+  const isFavorited = false;
 
   const handleFavorite = (e) => {
-    e.preventDefault();
+    alert("This Service Is Under Development");
+    // e.preventDefault();
 
-    if (!isAuthenticated) {
-      window.location.href = "/login";
-      return;
-    }
+    // if (!isAuthenticated) {
+    //   window.location.href = "/login";
+    //   return;
+    // }
 
     // if (isFavorited) {
     //   const fav = favorites.find((f) => f.recipeId === recipe.id);
@@ -40,7 +42,7 @@ export default function RecipeCard({ recipe, featured = false }) {
   return (
     <Link
       href={`/recipes/${recipe.id}`}
-      className={`group relative rounded-xl overflow-hidden shadow hover:shadow-lg transition h-[75vh]
+      className={`group relative rounded-xl overflow-hidden shadow hover:shadow-lg transition h-[75vh] bg-[#f7f7f7]
         ${featured ? "md:row-span-2" : ""}`}
     >
       <div className="relative h-48 md:h-64">
@@ -49,6 +51,7 @@ export default function RecipeCard({ recipe, featured = false }) {
           alt={recipe.title}
           layout="fill"
           objectFit="cover"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           className="group-hover:scale-105 transition duration-300"
         />
 
@@ -60,7 +63,7 @@ export default function RecipeCard({ recipe, featured = false }) {
         </button>
         <button
           onClick={handleFavorite}
-          className="absolute top-3 right-3 bg-white/90 p-2 rounded-full shadow"
+          className="absolute top-3 right-3 bg-white/90 p-2 rounded-full shadow hover:cursor-pointer transition"
         >
           {isFavorited ? (
             <FaHeart className="text-red-500" />
