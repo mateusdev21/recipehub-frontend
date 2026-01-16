@@ -8,9 +8,9 @@ export default function Footer() {
   const path = "/" + pathname.split("/")[1];
 
   const navitems = [
-    { name: "Recipes", href: "/recipes" },
-    { name: "News", href: "#" },
-    { name: "About Us", href: "#" },
+    { name: "RECIPES", href: "/recipes" },
+    { name: "NEWS", href: "/news" },
+    { name: "ABOUT US", href: "/about" },
   ];
 
   return (
@@ -24,20 +24,37 @@ export default function Footer() {
       </div>
 
       <div className="max-w-md mx-auto text-left text-gray-500">
-        <li>
+        <ul>
           {navitems.map((item) => {
             return (
-              <ul key={item.name}>
+              <li key={item.name}>
                 <Link
                   href={item.href}
                   className='text-sm transition text-gray-500 hover:text-[#ffcf60] font-semibold'
                 >
                   {item.name}
                 </Link>
-              </ul>
+              </li>
             );
           })}
-        </li>
+        </ul>
+      </div>
+
+      <div className="max-w-md mx-auto text-left text-gray-500">
+        <ul>
+          {navitems.map((item) => {
+            return (
+              <li key={item.name}>
+                <Link
+                  href={item.href}
+                  className='text-sm transition text-gray-500 hover:text-[#ffcf60] font-semibold'
+                >
+                  {item.name}
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
       </div>
     </footer>
   );

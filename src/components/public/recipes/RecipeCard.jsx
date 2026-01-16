@@ -8,29 +8,17 @@ import Image from "next/image";
 import { formatDate } from "@/utils/formating";
 // import { addFavorite, removeFavorite } from "@/redux/slices/favoriteSlice";
 
-export default function RecipeCard({ recipe, featured = false }) { 
+export default function RecipeCard({ recipe, featured = false }) {
   // const dispatch = useDispatch();
   // const { isAuthenticated } = useSelector((state) => state.auth);
   // const favorites = useSelector((state) => state.favorites.items);
 
   // const isFavorited = favorites.some((fav) => fav.recipeId === recipe.id);
   const isFavorited = false;
+  const tags = recipe.tags ? recipe.tags : [];
 
   const handleFavorite = (e) => {
     alert("This Service Is Under Development");
-    // e.preventDefault();
-
-    // if (!isAuthenticated) {
-    //   window.location.href = "/login";
-    //   return;
-    // }
-
-    // if (isFavorited) {
-    //   const fav = favorites.find((f) => f.recipeId === recipe.id);
-    //   dispatch(removeFavorite(fav.id));
-    // } else {
-    //   dispatch(addFavorite(recipe.id));
-    // }
   };
 
   const handlePrint = (e, id) => {
@@ -75,6 +63,17 @@ export default function RecipeCard({ recipe, featured = false }) {
 
       <div className="p-4 bg-[#f7f7f7]">
         <h3 className="font-semibold text-lg">{recipe.title}</h3>
+        <div className="flex">
+          {tags.length > 0 &&
+            tags.map((tag) => (
+              <div
+                key={tag}
+                className="mr-2 my-2 px-2 py-1 rounded-xl bg-[#ffcf60] border hover:border-[#ffcf60] hover:cursor-pointer hover:bg-[#f7f7f7] hover:text-[#ffcf60] transition"
+              >
+                <p className="text-xs">{tag}</p>
+              </div>
+            ))}
+        </div>
         <div className="flex items-center mb-2 space-x-2">
           <p className="text-xs text-gray-500 mt-1">
             {`Created date : ${formatDate(recipe.createdAt)}`}
