@@ -14,7 +14,7 @@ export default async function RecipeDetailPage({ params }) {
   if (!data) notFound();
 
   return (
-    <div className="max-w-3xl mx-auto">
+    <div className="max-w-3xl mx-auto pt-8">
       <h1 className="text-3xl font-bold mb-2">{data.title}</h1>
       <div className="flex w-full mb-4">
         <PrintPDFButton id={data.id} />

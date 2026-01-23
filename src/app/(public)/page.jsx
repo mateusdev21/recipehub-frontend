@@ -3,6 +3,7 @@ import { getNews } from "@/lib/fetcher/news";
 import HeroCarousel from "@/components/public/HeroCarousel";
 import RecipeList from "@/components/public/recipes/RecipeList";
 import NewsList from "@/components/public/news/NewsList";
+import { DebugStore } from "@/utils/debugStore";
 
 export default async function HomePage() {
   const recipes = await getRecipes();
@@ -19,6 +20,7 @@ export default async function HomePage() {
 
   return (
     <div className="space-y-10">
+      <DebugStore />
       <section className="min-w-full">
         <HeroCarousel slides={featuredList} />
       </section>

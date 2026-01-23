@@ -18,7 +18,7 @@ export default function LoginButton({ username, password }) {
         { withCredentials: true }
       );
 
-      dispatch(loginSuccess({ user: res.data.user }));
+      dispatch(loginSuccess({ user: res.data.data }));
       toast.success("Login berhasil");
       router.push("/");
     } catch (err) {

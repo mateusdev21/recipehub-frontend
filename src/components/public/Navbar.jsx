@@ -3,16 +3,25 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useRef, useEffect } from "react";
-import { IoSearch, IoPersonOutline } from "react-icons/io5";
+import {
+  IoSearch,
+  IoPersonOutline,
+  IoChevronDown,
+  IoChevronUp,
+  IoHeartOutline,
+  IoLogOutOutline,
+} from "react-icons/io5";
+import { useSelector } from "react-redux";
 
 export default function Navbar() {
+  const store = useSelector((state) => state);
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef(null);
+  const isLoggedIn = store.auth.isAuthenticated;
+  const user = store.auth.user;
 
   const path = "/" + pathname.split("/")[1];
-
-  const isLoggedIn = false;
 
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -35,7 +44,7 @@ export default function Navbar() {
     <header className="absolute inset-x-0 top-0 z-50">
       <nav
         aria-label="Global"
-        className="flex items-center justify-between p-6 lg:px-8"
+        className="flex items-center justify-between px-6 py-4 lg:px-8 shadow-md bg-white"
       >
         <div className="flex lg:flex-1">
           <Link href="/">
@@ -83,22 +92,25 @@ export default function Navbar() {
           </div>
 
           <div className="relative" ref={dropdownRef}>
-            <button
+            <div
+              className="flex group items-center hover:cursor-pointer"
               onClick={() => setOpen(!open)}
-              className="text-white p-2 rounded-2xl hover:text-[#ffcf60] hover:cursor-pointer transition bg-[#222222]"
             >
-              <IoPersonOutline size={18} />
-            </button>
+              <div className="text-white p-2 mr-2 rounded-2xl group-hover:text-[#ffcf60] hover:cursor-pointer transition bg-[#222222]">
+                <IoPersonOutline size={18} />
+              </div>
+              {open ? <IoChevronUp size={18} /> : <IoChevronDown size={18} />}
+            </div>
 
             {!isLoggedIn && open && (
               <div
-                className="absolute right-0 mt-2 w-40 p-2
+                className="absolute right-0 mt-2 w-50 p-2
                           rounded-lg bg-white shadow-lg"
               >
                 <button
                   onClick={() => (window.location.href = "/login")}
                   className="block w-full px-4 pt-3 pb-1 text-left text-sm
-                         hover:bg-gray-100 hover:cursor-pointer"
+                         hover:bg-[#ffce5f] hover:cursor-pointer"
                 >
                   Login
                 </button>
@@ -106,7 +118,7 @@ export default function Navbar() {
                 <button
                   onClick={() => (window.location.href = "/register")}
                   className="block w-full px-4 py-2 text-left text-sm
-                         hover:bg-gray-100 hover:cursor-pointer"
+                         hover:bg-[#ffce5f] hover:cursor-pointer"
                 >
                   Register
                 </button>
@@ -114,19 +126,43 @@ export default function Navbar() {
             )}
             {isLoggedIn && open && (
               <div
-                className="absolute right-0 mt-2 w-40
-              rounded-lg border bg-white shadow-lg"
+                className="absolute right-0 mt-2 w-60 p-2
+                          rounded-lg bg-white shadow-lg"
               >
+                <div className="flex items-center w-full px-4 py-2">
+                  <div className="p-3 mr-3 bg-[#222222] rounded-4xl">
+                    <IoPersonOutline size={20} className="text-white " />
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold text-[#222222]">
+                      {user.firstname}
+                    </p>
+                    <p className="text-xs font-medium text-gray-600">
+                      {user.role}
+                    </p>
+                  </div>
+                </div>
+                <hr className="text-[#ffce5f]" />
                 <button
-                  className="block w-full px-4 py-2 text-left text-sm
-                         hover:bg-gray-100"
+                  className="flex w-full px-4 pt-3 pb-1 text-left text-sm
+                         hover:bg-[#ffce5f] hover:cursor-pointer"
                 >
+                  <IoPersonOutline className="mr-3" />
                   Profile
                 </button>
                 <button
-                  className="block w-full px-4 py-2 text-left text-sm
-                         hover:bg-gray-100"
+                  className="flex w-full px-4 pt-3 pb-1 text-left text-sm
+                         hover:bg-[#ffce5f] hover:cursor-pointer"
                 >
+                  <IoHeartOutline className="mr-3" />
+                  Favourites
+                </button>
+                <hr className="text-[#ffce5f]" />
+                <button
+                  className="flex w-full px-4 pt-4 pb-2 text-left text-sm
+                         hover:bg-[#ffce5f] hover:cursor-pointer"
+                >
+                  <IoLogOutOutline className="mr-2" />
                   Logout
                 </button>
               </div>

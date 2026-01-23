@@ -1,13 +1,13 @@
 "use client";
+import NewsRow from "./NewsRow";
 
 export default function NewsList({ news }) {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+    <div>
       {news.map((item) => (
-        <div key={item.id}>
-            <p>{item.title}</p>
-        </div>
+        <NewsRow key={item.id} news={item} />
       ))}
+      <hr className="text-[#fecf5d]" />
     </div>
   );
 }

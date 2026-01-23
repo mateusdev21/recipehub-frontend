@@ -5,7 +5,7 @@ export default function PublicLayout({ children }) {
   return (
     <>
       <Navbar />
-      <main className="min-h-screen min-w-full container py-6 mt-16">
+      <main className="min-h-screen min-w-full container py-6 mt-10">
         {children}
       </main>
       <Footer />
